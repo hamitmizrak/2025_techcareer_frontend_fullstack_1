@@ -1,7 +1,7 @@
 {
   "name": "2025_techcareer_frontend_fullstack_1",
   "version": "1.0.0",
-  "description": "",
+  "description": "[GitHub Address](https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_1.git)\r [Mongo Database Cloud](https://www.mongodb.com/products/platform/cloud)\r [Mongo Database Download](https://www.mongodb.com/try/download/community)\r [Font Awesome](https://fontawesome.com/search?ic=free)\r [Google Font](https://fonts.google.com/selection/embed)\r [Bootstrap](https://getbootstrap.com/)\r [Box Shadow Online](https://cssgenerator.pl/en/box-shadow-generator/)\r [jQuery](https://jquery.com//)\r [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install//)\r ---",
   "main": "./dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,18 +29,18 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
-    "mongodb": "^6.12.0",
-    "mongoose": "^8.9.5",
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.10.0",
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.1",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
-    "eslint": "^9.19.0",
+    "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "lite-server": "^2.6.1",

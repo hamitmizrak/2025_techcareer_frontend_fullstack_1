@@ -107,5 +107,5 @@ BlogPostSchema.set("toJSON", {virtuals: true});
 // module.exports = mongoose.model("MongoBlogModel", BlogPostSchema);
 
 // 2.YOL
-const Blog = mongoose.model("MongoBlogModel", BlogPostSchema);
+const Blog = mongoose.model("MongoBlogModel", BlogPostSchema, "posts");
 module.exports = Blog;

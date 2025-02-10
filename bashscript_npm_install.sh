@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Shebang (#!/): Betiğin Bash kabuğu ile çalışacağını gösterir.
@@ -54,7 +53,8 @@ file_mvc() {
 
     echo -e "\n\e[36m\n###### MVC için dosya yapıları ######\e[0m"
     echo -e "\e[33mMVC için dosya yapıları yüklemek ister misiniz? [e/h]\e[0m"
-    read -p "" mvc
+    # read -p "" mvc  # Kullanıcı girişini devre dışı bırak
+    mvc="h"          # Otomatik olarak evet değerini ata
 
     if [[ "$mvc" == "e" || "$mvc" == "E" ]]; then
         echo -e "\e[32mMVC için dosya yapıları...\e[0m"
@@ -127,7 +127,8 @@ create_empty_files_if_not_exists() {
 
     echo -e "\e[36m\n###### ${PACKAGE} ######  \e[0m"
     echo -e "\e[33mGenel Dosyaları Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" packageResult
+    # read -p "" packageResult  # Kullanıcı girişini devre dışı bırak
+    packageResult="h"          # Otomatik olarak evet değerini ata
     if [[ $packageResult == "e" || $packageResult == "E" ]]; then
         echo -e "\e[32mpackage Yüklenmeye başlandı ...\e[0m"
 
@@ -162,7 +163,8 @@ index_html_install() {
 
     echo -e "\e[36m\n###### index.html Kurulumu ######\e[0m"
     echo -e "\e[33mindex.html dosyasını yüklemek ister misiniz? [e/h]\e[0m"
-    read -p "" indexResult
+    # read -p "" indexResult
+    indexResult="h"
 
     if [[ "$indexResult" == "e" || "$indexResult" == "E" ]]; then
         echo -e "\e[32mindex.html yüklenmeye başlıyor...\e[0m"
@@ -247,7 +249,8 @@ gitignore_install() {
 
     echo -e "\n\e[36m\n###### gitignore Kurulumu ######\e[0m"
     echo -e "\e[33mgitignore yüklemek ister misiniz? [e/h]\e[0m"
-    read -p "" gitignore
+    # read -p "" gitignore
+    gitignore="h"
 
     if [[ "$gitignore" == "e" || "$gitignore" == "E" ]]; then
         echo -e "\e[32mgitignore yüklenmeye başlıyor...\e[0m"
@@ -286,7 +289,8 @@ package_json() {
 
     echo -e "\n\e[36m\n###### ${PACKAGE_JSON} ######  \e[0m"
     echo -e "\e[33mPackage.json Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" packageJsonResult
+    # read -p "" packageJsonResult
+    packageJsonResult="h"
     if [[ $packageJsonResult == "e" || $packageJsonResult == "E" ]]; then
         echo -e "\e[32mpackage Json Yüklenmeye başlandı ...\e[0m"
 
@@ -374,7 +378,8 @@ npm_local_save() {
 
     echo -e "\n\e[36m\n###### ${NPM_SAVE} ######  \e[0m"
     echo -e "\e[33mNpm Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" npmSaveResult
+    # read -p "" npmSaveResult
+    npmSaveResult="h"
     if [[ $npmSaveResult == "e" || $npmSaveResult == "E" ]]; then
         echo -e "\e[32mNpm Save Yüklenmeye başlandı ...\e[0m"
 
@@ -408,7 +413,8 @@ npm_local_dev_sav() {
 
     echo -e "\n\e[36m\n###### ${NPM_SAVE_DEV} ######  \e[0m"
     echo -e "\e[33mnpm Save-Dev Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" npmDevSaveResult
+    # read -p "" npmDevSaveResult
+    npmDevSaveResult="h"
     if [[ $npmDevSaveResult == "e" || $npmDevSaveResult == "E" ]]; then
         echo -e "\e[32mNpm Dev-Save Yüklenmeye başlandı ...\e[0m"
 
@@ -445,7 +451,8 @@ npm_global_save() {
 
     echo -e "\n\e[36m\n###### ${NPM_GLOBAL} ######  \e[0m"
     echo -e "\e[33mnpm Global  Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" npmGlobalResult
+    # read -p "" npmGlobalResult
+    npmGlobalResult="h"
     if [[ $npmGlobalResult == "e" || $npmGlobalResult == "E" ]]; then
         echo -e "\e[32mNpm Global Yüklenmeye başlandı ...\e[0m"
 
@@ -481,7 +488,8 @@ typescript_install() {
 
     echo -e "\n\e[36m###### TypeScript Kurulumu ######\e[0m"
     echo -e "\e[33mTypeScript yüklemek ister misiniz? [e/h]\e[0m"
-    read -r typescriptResult
+    # read -r typescriptResult
+    typescriptResult="h"
     if [[ "$typescriptResult" == "e" || "$typescriptResult" == "E" ]]; then
         echo -e "\e[32mTypeScript yüklenmeye başlıyor...\e[0m"
 
@@ -581,7 +589,8 @@ nodemon_install() {
 
     echo -e "\n\e[36m\n###### Nodemon Kurulumu ######\e[0m"
     echo -e "\e[33mNodemon yüklemek ister misiniz? [e/h]\e[0m"
-    read -p "" nodemonResult
+    # read -p "" nodemonResult
+    nodemonResult="h"
 
     if [[ "$nodemonResult" == "e" || "$nodemonResult" == "E" ]]; then
         echo -e "\e[32mNodemon yüklenmeye başlıyor...\e[0m"
@@ -622,7 +631,8 @@ npm_update() {
 
     echo -e "\e[36m\n###### ${NPM_UPDATE} ######  \e[0m"
     echo -e "\e[33mnpm Update  Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" npmUpdateResult
+    # read -p "" npmUpdateResult
+    npmUpdateResult="h"
     if [[ $npmUpdateResult == "e" || $npmUpdateResult == "E" ]]; then
         echo -e "\e[32mNpm Global Yüklenmeye başlandı ...\e[0m"
 
@@ -648,7 +658,8 @@ npm_compiler() {
 
     echo -e "\e[36m\n###### ${NPM_COMPILER} ######  \e[0m"
     echo -e "\e[33mnpm Compiler Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" npmCompilerResult
+    # read -p "" npmCompilerResult
+    npmCompilerResult="h"
     if [[ $npmCompilerResult == "e" || $npmCompilerResult == "E" ]]; then
         echo -e "\e[32mNpm Compiler Yüklenmeye başlandı ...\e[0m"
 
@@ -670,7 +681,8 @@ package_json_script_added() {
 
     echo -e "\e[36m\n###### package.json Script ekle ######  \e[0m"
     echo -e "\e[33mpackage.json script eklemek Yüklemek İster misiniz? e/h\e[0m"
-    read -p "" packageJsonScriptResult
+    # read -p "" packageJsonScriptResult
+    packageJsonScriptResult="h"
     if [[ $packageJsonScriptResult == "e" || $packageJsonScriptResult == "E" ]]; then
         echo -e "\e[32m package.json Script Yüklenmeye başlandı...\e[0m"
         # package.json dosyasının varlığını kontrol et
@@ -725,7 +737,7 @@ server_start() {
             echo "bs-config.json oluşturuluyor..."
             cat > bs-config.json <<EOL
 {
-  "port": 3000,
+  "port": 1111,
   "files": ["./*.html", "./*.css", "./*.js"],
   "server": {
     "baseDir": "./",
@@ -758,9 +770,11 @@ mongo_env() {
 
     echo -e "\e[36m\n###### ${MONGO_ENV} ######  \e[0m"
     echo -e "\e[33mMongo için .env oluşturulsun mu ? e/h\e[0m"
-    read -p "" mongoEnvResult
+    # read -p "" mongoEnvResult
+    mongoEnvResult="h"
     if [[ $mongoEnvResult == "e" || $mongoEnvResult == "E" ]]; then
         echo -e "\e[32mMongoENV ...\e[0m"
+
 
         # Geriye Sayım
         ./bashscript_countdown.sh
@@ -832,8 +846,8 @@ docker_mongo() {
             echo -e "\e[32mDocker Üzerinden MongoDB Yüklenmeye başlandı ...\e[0m"
             # Volume olmadan
             # docker container run --detach --name mongodb-container --publish 27000:27017 mongo
-            # docker container run --detach --name mongodb-container --publish 27000:27017 mongo:latest
-             docker container run --detach --name mongodb-container --publish 27000:27017 mongo:8.0.4
+             docker container run --detach --name mongodb-container --publish 27000:27017 mongo:latest
+            # docker container run --detach --name mongodb-container --publish 27000:27017 mongo:8.0.4
              ./bashscript_countdown.sh
         else
             echo -e "${RED}MongoDB ekleme yapılmadı${NC}"
@@ -909,13 +923,14 @@ docker_mongo_terminal() {
         show dbs; # Mongo Mevcut databaseleri göster
         use blogDB; # Mongo'da blogDB olan database seç
         show dbs; # Mongo Mevcut databaseleri göster
-        # db.createCollection("posts");  # Mongo'da byeni Collections oluşturmak
-#        db.posts.insertOne({
-#            header: "İlk Blog Yazım",
-#            content: "Bu benim ilk blog yazımın içeriğidir.",
-#            author: "Hamit Mızrak.",
-#            tags: "java,jsp",
-#        })
+        db.createCollection("posts");  # Mongo'da byeni Collections oluşturmak
+        db.posts.insertOne({
+            header: "İlk Blog Yazım",
+            content: "Bu benim ilk blog yazımın içeriğidir.",
+            author: "Hamit Mızrak.",
+            tags: "java,jsp",
+        })
+
         # db.posts.find().pretty(); # Blog yazısını getir
     else
         echo -e "Docker_mongo_terminal Seçilmedi..."
@@ -927,7 +942,6 @@ docker_mongo_terminal
 #####################################################################################################
 # Mongo_env (Install)
 mongo_setup() {
-    mongosh --version
     # Geriye Say
     ./bashscript_countdown.sh
     MONGO_LOCALHOST="Mongo Localhost veya 127.0.0.1"
@@ -940,29 +954,31 @@ mongo_setup() {
 
         # Geriye Sayım
         ./bashscript_countdown.sh
-        mongosh <<EOF
-
-use blogDB
-db.getUsers()
-
-db.createUser({
-user: "root",
-pwd: "rootroot",
-roles:[
-  {
-    role: "readWrite",db:"blogDB"
-  }
-]
-})
-
-db.getUsers()
-db.posts.insertOne({
-    header: "İlk Blog Yazım",
-    content: "Bu benim ilk blog yazımın içeriğidir.",
-    author: "Hamit Mızrak.",
-    tags: "java,jsp",
-})
-EOF
+        
+        # Docker container'ına komutları gönder
+        docker exec -i mongodb-container mongo --eval '
+          use blogDB;
+          db.getUsers();
+          
+          db.createUser({
+            user: "root",
+            pwd: "rootroot",
+            roles:[
+              {
+                role: "readWrite",
+                db:"blogDB"
+              }
+            ]
+          });
+          
+          db.getUsers();
+          db.posts.insertOne({
+            header: "İlk Blog Yazım",
+            content: "Bu benim ilk blog yazımın içeriğidir.",
+            author: "Hamit Mızrak.",
+            tags: "java,jsp",
+          });
+        '
         echo -e "\e[32m.Mongo Localhost Setup kurulumu tamamlandı!\e[0m"
     else
         echo -e "\e[31mMongo Localhost Setup kurulumu iptal edildi.\e[0m"
@@ -982,7 +998,8 @@ git_push() {
 
     echo -e "\e[36m\n###### ${GIT} ######  \e[0m"
     echo -e "\e[33mGit Yüklemek İster misiniz ? e/h\e[0m"
-    read -p "" gitResult
+    # read -p "" gitResult
+    gitResult="h"
     if [[ $gitResult == "e" || $gitResult == "E" ]]; then
         echo -e "\e[32mGit Yüklenmeye başlandı ...\e[0m"
 

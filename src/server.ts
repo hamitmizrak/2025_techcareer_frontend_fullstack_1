@@ -129,7 +129,7 @@ const dataUrl = [
 
 mongoose
   // .connect(`${databaseDockerUrl}`)
-  .connect(`${databaseLocalUrl}`)
+  .connect(`${databaseDockerUrl}`)
   .then(() => {
     console.log("Mongo DB Başarıyla Yüklendi");
   })
@@ -199,7 +199,8 @@ const limiter = rateLimit({
     message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
 });
 
-app.use("/blog/", limiter);
+app.use("/blog/api", limiter);
+app.use("/register/api", limiter);
 
 // CORS
 // npm install cors
@@ -253,7 +254,7 @@ app.get("/", (req:any, res:any,) => {
 
 // Formu render eden rota ("/")
 // Anasayfaya yönlendir.
-app.get("/blog/api", csrfProtection, (request:any, response:any) => {
+app.get("/blog", csrfProtection, (request:any, response:any) => {
     // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
     //response.setHeader("Content-Type", "application/json");
     //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
@@ -293,11 +294,52 @@ app.get("/blog/api", csrfProtection, (request:any, response:any) => {
     response.render("blog", { csrfToken: request.csrfToken() });
 });
 
+app.get("/register", csrfProtection, (request:any, response:any) => {
+  // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
+  //response.setHeader("Content-Type", "application/json");
+  //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
+  response.setHeader("Content-Type", "text/html");
+  //response.setHeader("Content-Type", "application/x-www-form-urlencoded"); // name=Hamit&surname=Mizrak
+
+  // cache-control: Yanıtları hızlı sunmak için ve sunucya gereksiz istekleri azaltmak için
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+  // Sitemizi başka sitelerde iframe ile açılmasını engellemek
+  // clickjacking saldırılarına karşı korumayı sağlar
+  response.setHeader("X-Frame-Options", "DENY");
+
+  // X-XSS-Protection: Tarayıca tarafından XSS(Cross-Site Scripting) saldırılarıa karşı koruma
+  // XSS saldırısını tespit ederse sayfanın yüklenmesini engeller.
+  response.setHeader("X-XSS-Protection", "1; mode=block");
+
+  // Access Control (CORS Başlıkları)
+  // XBaşka bir kaynaktan gelen istekleri kontrol etmet için CORS başlığı ekleyebiliriz.
+  response.setHeader("Access-Control-Allow-Origin", "https://example.com");
+
+  // Access-Control-Allow-Methods
+  // Sunucunun hangi HTTP yöntemlerini kabul etiğini gösterir.
+  response.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+
+  // Access-Control-Allow-Headers
+  // Bu başlıklar, taryıcınının sunucuya göndereceği özel başlıklar göndersin
+  response.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+  );
+
+  // dist/server.js
+  response.render("register", { csrfToken: request.csrfToken() });
+});
+
+
 // Form verilerini işleyen rota
 // DİKKATT: Eğer  blog_api_routes.js post kısmında event.preventDefault(); kapatırsam buraki kodlar çalışır.
 // blog için CSRF koruması eklenmiş POST işlemi
 // app.post("/blog", csrfProtection, (request, response) => {
-app.post("/blog/api", csrfProtection, (request:any, response:any) => {
+app.post("/blog", csrfProtection, (request:any, response:any) => {
     const blogData = {
         header: request.body.header,
         content: request.body.content,
@@ -320,7 +362,7 @@ app.post("/blog/api", csrfProtection, (request:any, response:any) => {
         logger.info("Dolu gövde alındı."); //logger: Winston
     }
 
-    const BlogModel = require("./models/mongoose_blog_models"); // Modeli ekleyin
+    const BlogModel = require("../models/mongoose_blog_models"); // Modeli ekleyin
 
     const newBlog = new BlogModel(blogData);
     newBlog
@@ -337,7 +379,41 @@ app.post("/blog/api", csrfProtection, (request:any, response:any) => {
         });
 });
 
+// app.post("/blog", csrfProtection, (request, response) => {
+app.post("/register", csrfProtection, async (request:any, response:any) => {
+    try {
+        const blogRegisterData = {
+            username: request.body.username,
+            email: request.body.email,
+            password: request.body.password,
+        };
 
+        if (!blogRegisterData.username || !blogRegisterData.email || !blogRegisterData.password) {
+            return response.status(400).render('register', { 
+                error: "Tüm alanları doldurun",
+                csrfToken: request.csrfToken()
+            });
+        }
+
+        const BlogRegisterModel = require("../models/mongoose_blog_register_models");
+        const newBlogRegister = new BlogRegisterModel(blogRegisterData);
+        await newBlogRegister.save();
+
+        // Başarılı kayıttan sonra aynı sayfaya yönlendir
+        response.render('register', {
+            success: "Kayıt başarıyla oluşturuldu",
+            csrfToken: request.csrfToken()
+        });
+        // POST işleminden sonra /register sayfasına yönlendir
+        response.redirect('/register');
+    } catch (err) {
+        console.error("Kayıt hatası:", err);
+        response.render('register', {
+            error: "Kayıt sırasında bir hata oluştu",
+            csrfToken: request.csrfToken()
+        });
+    }
+});
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -350,10 +426,12 @@ app.set("view engine", "ejs");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Router (Rotalar)
 const blogRoutes = require("../routes/blog_api_routes");
+const blogRegisterRoutes = require("../routes/blog_register_routes");
 const { request } = require("http");
 
 // http://localhost:1111/blog
-app.use("/blog/", blogRoutes);
+app.use("/blog/api", blogRoutes);
+app.use("/register/api", blogRegisterRoutes);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
