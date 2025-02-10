@@ -1,3 +1,9 @@
+# Tsc compiler
+tsc
+npm install
+npm start
+
+
 # Mongo_env (Install)
 mongo_setup() {
     mongosh --version

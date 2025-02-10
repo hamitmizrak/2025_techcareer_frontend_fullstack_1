@@ -44,23 +44,23 @@ const app = express();
 
 // Winston logger yapılandırması
 const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({
-      filename: "winston_error.log",
-      level: "error",
-    }),
-    new winston.transports.File({ filename: "winston_combined.log" }),
-  ],
+    level: "info",
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({
+            filename: "../logs/winston_error.log",
+            level: "error",
+        }),
+        new winston.transports.File({filename: "../logs/winston_combined.log"}),
+    ],
 });
 
 if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    })
-  );
+    logger.add(
+        new winston.transports.Console({
+            format: winston.format.simple(),
+        })
+    );
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +93,7 @@ db.createUser({
 // Localhostta MongoDB yüklüyse)
 // Bu proje için docker-compose üzerinden 27017 porta sahip mongodb kurdum
 import dotenv from 'dotenv';
+
 dotenv.config();
 // 1.YOL (LOCALHOST)
 // .env dosyasındaki bilgilerden bağlantı URL'si oluşturuluyor
@@ -106,7 +107,7 @@ const databaseDockerUrl = "mongodb://localhost:27000/blogDB";
 // MongoDB Cloud (username,password)
 // 3.YOL (CLOUD)
 const databaseCloudUrl =
-  "mongodb+srv://hamitmizrak:<password>@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster";
+    "mongodb+srv://hamitmizrak:<password>@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster";
 
 // 4.YOL (.dotenv)
 require("dotenv").config();
@@ -115,9 +116,10 @@ const databaseCloudUrlDotEnv = `mongodb+srv://${process.env.MONGO_USERNAME}:${pr
 
 // Local ve Cloud
 const dataUrl = [
-  databaseLocalUrl,
-  databaseCloudUrl,
-  databaseCloudUrlDotEnv,
+    databaseLocalUrl,
+    databaseDockerUrl,
+    databaseCloudUrl,
+    databaseCloudUrlDotEnv,
 ];
 
 // Connect
@@ -128,14 +130,14 @@ const dataUrl = [
 //mongoose.connect(`${databaseCloudUrl}`, {useNewUrlParser:true, useUnifiedTopology:true}) // Eski MongoDB sürümleride
 
 mongoose
-  // .connect(`${databaseDockerUrl}`)
-  .connect(`${databaseDockerUrl}`)
-  .then(() => {
-    console.log("Mongo DB Başarıyla Yüklendi");
-  })
-  .catch((err:any) => {
-    console.error("Mongo DB Bağlantı Hatası", err);
-  });
+    // .connect(`${databaseDockerUrl}`)
+    .connect(`${databaseDockerUrl}`)
+    .then(() => {
+        console.log("Mongo DB Başarıyla Yüklendi");
+    })
+    .catch((err: any) => {
+        console.error("Mongo DB Bağlantı Hatası", err);
+    });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MIDDLEWARE
 // Middleware'leri dahil et
@@ -152,7 +154,7 @@ name:"Hamit",
 surname:"Mızrak"
 }
  */
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 // Bu middleware gelen HTTP isteklerinin gövdesindeki JSIN verilerini ayrıştırır.
@@ -168,7 +170,7 @@ app.use(cookieParser());
 // CSRF Middleware
 // CSRF(Cross-Site Request Forgery) saldırılarına karşı güvenliği sağlar.
 // CSRF tokenlarını çerezler araçılığyla gönderilir.
-const csrfProtection = csrf({ cookie: true });
+const csrfProtection = csrf({cookie: true});
 
 // Express için Log
 const morgan = require("morgan");
@@ -215,7 +217,7 @@ app.use(cors());
 
 // const helmet = require("helmet");
 //app.use(helmet());
-app.use(helmet.frameguard({ action: "deny" })); // Clickjacking'e karşı koruma
+app.use(helmet.frameguard({action: "deny"})); // Clickjacking'e karşı koruma
 app.use(helmet.xssFilter()); // XSS saldırılarına karşı koruma
 app.use(helmet.noSniff()); // MIME sniffing koruması
 
@@ -243,18 +245,18 @@ Kullanıcı browser üzerinden oturum açtığında ve kimlik doğrulama bilgile
 // app.use(express.static("public"));
 // 📌 Statik Dosya Servisi (index44.html'nin çalışması için)
 import path from "path";
+
 app.use(express.static(path.join(__dirname, "../public")));
 
 
-
 // 📌 Ana Sayfa (`index44.html`) Yönlendirmesi
-app.get("/", (req:any, res:any,) => {
+app.get("/", (req: any, res: any,) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Formu render eden rota ("/")
 // Anasayfaya yönlendir.
-app.get("/blog", csrfProtection, (request:any, response:any) => {
+app.get("/blog", csrfProtection, (request: any, response: any) => {
     // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
     //response.setHeader("Content-Type", "application/json");
     //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
@@ -291,47 +293,47 @@ app.get("/blog", csrfProtection, (request:any, response:any) => {
     );
 
     // dist/server.js
-    response.render("blog", { csrfToken: request.csrfToken() });
+    response.render("blog", {csrfToken: request.csrfToken()});
 });
 
-app.get("/register", csrfProtection, (request:any, response:any) => {
-  // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
-  //response.setHeader("Content-Type", "application/json");
-  //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
-  response.setHeader("Content-Type", "text/html");
-  //response.setHeader("Content-Type", "application/x-www-form-urlencoded"); // name=Hamit&surname=Mizrak
+app.get("/register", csrfProtection, (request: any, response: any) => {
+    // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
+    //response.setHeader("Content-Type", "application/json");
+    //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
+    response.setHeader("Content-Type", "text/html");
+    //response.setHeader("Content-Type", "application/x-www-form-urlencoded"); // name=Hamit&surname=Mizrak
 
-  // cache-control: Yanıtları hızlı sunmak için ve sunucya gereksiz istekleri azaltmak için
-  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    // cache-control: Yanıtları hızlı sunmak için ve sunucya gereksiz istekleri azaltmak için
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-  // Sitemizi başka sitelerde iframe ile açılmasını engellemek
-  // clickjacking saldırılarına karşı korumayı sağlar
-  response.setHeader("X-Frame-Options", "DENY");
+    // Sitemizi başka sitelerde iframe ile açılmasını engellemek
+    // clickjacking saldırılarına karşı korumayı sağlar
+    response.setHeader("X-Frame-Options", "DENY");
 
-  // X-XSS-Protection: Tarayıca tarafından XSS(Cross-Site Scripting) saldırılarıa karşı koruma
-  // XSS saldırısını tespit ederse sayfanın yüklenmesini engeller.
-  response.setHeader("X-XSS-Protection", "1; mode=block");
+    // X-XSS-Protection: Tarayıca tarafından XSS(Cross-Site Scripting) saldırılarıa karşı koruma
+    // XSS saldırısını tespit ederse sayfanın yüklenmesini engeller.
+    response.setHeader("X-XSS-Protection", "1; mode=block");
 
-  // Access Control (CORS Başlıkları)
-  // XBaşka bir kaynaktan gelen istekleri kontrol etmet için CORS başlığı ekleyebiliriz.
-  response.setHeader("Access-Control-Allow-Origin", "https://example.com");
+    // Access Control (CORS Başlıkları)
+    // XBaşka bir kaynaktan gelen istekleri kontrol etmet için CORS başlığı ekleyebiliriz.
+    response.setHeader("Access-Control-Allow-Origin", "https://example.com");
 
-  // Access-Control-Allow-Methods
-  // Sunucunun hangi HTTP yöntemlerini kabul etiğini gösterir.
-  response.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-  );
+    // Access-Control-Allow-Methods
+    // Sunucunun hangi HTTP yöntemlerini kabul etiğini gösterir.
+    response.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    );
 
-  // Access-Control-Allow-Headers
-  // Bu başlıklar, taryıcınının sunucuya göndereceği özel başlıklar göndersin
-  response.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-  );
+    // Access-Control-Allow-Headers
+    // Bu başlıklar, taryıcınının sunucuya göndereceği özel başlıklar göndersin
+    response.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
 
-  // dist/server.js
-  response.render("register", { csrfToken: request.csrfToken() });
+    // dist/server.js
+    response.render("register", {csrfToken: request.csrfToken()});
 });
 
 
@@ -339,7 +341,7 @@ app.get("/register", csrfProtection, (request:any, response:any) => {
 // DİKKATT: Eğer  blog_api_routes.js post kısmında event.preventDefault(); kapatırsam buraki kodlar çalışır.
 // blog için CSRF koruması eklenmiş POST işlemi
 // app.post("/blog", csrfProtection, (request, response) => {
-app.post("/blog", csrfProtection, (request:any, response:any) => {
+app.post("/blog", csrfProtection, (request: any, response: any) => {
     const blogData = {
         header: request.body.header,
         content: request.body.content,
@@ -362,7 +364,7 @@ app.post("/blog", csrfProtection, (request:any, response:any) => {
         logger.info("Dolu gövde alındı."); //logger: Winston
     }
 
-    const BlogModel = require("../models/mongoose_blog_models"); // Modeli ekleyin
+    const BlogModel = require("./models/mongoose_blog_models"); // Modeli ekleyin
 
     const newBlog = new BlogModel(blogData);
     newBlog
@@ -372,7 +374,7 @@ app.post("/blog", csrfProtection, (request:any, response:any) => {
             logger.info("Blog başarıyla kaydedildi:", blogData); //logger: Winston
             response.send("CSRF ile blog başarıyla kaydedildi.");
         })
-        .catch((err:any) => {
+        .catch((err: any) => {
             console.log("Veritabanı hatası:", err);
             logger.error("Veritabanı hatası:", err); //logger: Winston
             response.status(500).send("Veritabanı hatası oluştu.");
@@ -380,7 +382,7 @@ app.post("/blog", csrfProtection, (request:any, response:any) => {
 });
 
 // app.post("/blog", csrfProtection, (request, response) => {
-app.post("/register", csrfProtection, async (request:any, response:any) => {
+app.post("/register", csrfProtection, async (request: any, response: any) => {
     try {
         const blogRegisterData = {
             username: request.body.username,
@@ -389,7 +391,7 @@ app.post("/register", csrfProtection, async (request:any, response:any) => {
         };
 
         if (!blogRegisterData.username || !blogRegisterData.email || !blogRegisterData.password) {
-            return response.status(400).render('register', { 
+            return response.status(400).render('register', {
                 error: "Tüm alanları doldurun",
                 csrfToken: request.csrfToken()
             });
@@ -427,7 +429,7 @@ app.set("view engine", "ejs");
 // Router (Rotalar)
 const blogRoutes = require("../routes/blog_api_routes");
 const blogRegisterRoutes = require("../routes/blog_register_routes");
-const { request } = require("http");
+const {request} = require("http");
 
 // http://localhost:1111/blog
 app.use("/blog/api", blogRoutes);
@@ -436,8 +438,8 @@ app.use("/register/api", blogRegisterRoutes);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 404 Hata sayfası
-app.use((request:any, response:any, next:any) => {
-  response.status(404).render("404", { url: request.originalUrl });
+app.use((request: any, response: any, next: any) => {
+    response.status(404).render("404", {url: request.originalUrl});
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -462,6 +464,6 @@ netsh advfirewall firewall add rule name="Block UDP Port 1111" protocol=UDP dir=
 // Sunucu başlatma
 const PORT = process.env.LOCALHOST_PORT || 1111;
 app.listen(PORT, () => {
-  console.log(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`);
-  logger.info(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`); //logger: Winston
+    console.log(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`);
+    logger.info(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`); //logger: Winston
 });
