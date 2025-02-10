@@ -1,0 +1,156 @@
+<!--
+EJS(Embedded JavaScript  bunu node.js kullandığımızda mongodb, api gibi verileri html içinde göstermek)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Register Page</title>
+    <!-- for language  -->
+    <meta charset="utf-8" />
+
+    <!-- Responsive Design -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- External css -->
+    <!-- NOT: `/css/blog.css` için  public dizininde olması gerekiyor -->
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body class="container">
+    <!-- start codes -->
+
+    <h1 class="text-center text-uppercase text-primary">Register Sayfası</h1>
+    <p><%= csrfToken %></p>
+
+
+    <!-- Blog Form -->
+    <!-- <form id="blog-form"> -->
+    <!-- CSRF (Cross-Site Request Forgery):  action,POST için eklendi -->
+    <!-- blog için express router(yönlendirmesini yapacağım bunun için server.ts gelen verilerden kullanacağım) -->
+
+    <form action="/register" method="POST" id="blog-register-form">
+
+      <!-- Dikkat: Eğer bunu yazmazsanız hata alırsınız. CSRF (Cross-Site Request Forgery) -->
+      <input type="hidden" name="_csrf" id="_csrf" value="<%= csrfToken %>" />
+
+      <!-- BLOG REGISTER USERNAME -->
+      <div class="form-group mb-3">
+        <span for="username">Username</span>
+        <!-- required kaldırdım -->
+        <input
+
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="Username"
+          required
+          autofocus
+
+        />
+      </div>
+
+      <!-- BLOG REGISTER EMAIL -->
+      <div class="form-group mb-3">
+        <span for="email" class="form-label">Email</span>
+        <!-- required kaldırdım -->
+        <input
+          class="form-control"
+          name="email"
+          id="email"
+          placeholder="Email"
+          required
+        ></input>
+      </div>    
+
+      <!-- BLOG REGISTER PASSWORD -->
+      <div class="form-group mb-3">
+        <span for="password">Password</span>
+        <input
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Password"
+            type="password"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            title="En az 8 karakter, en az 1 harf ve 1 rakam içermelidir"
+            required
+        />
+        <div class="password-strength mt-2"></div>
+      </div>
+
+
+      <!-- BLOG BUTTON -->
+      <div class="form-group mb-3">
+        <input type="reset" value="Temizle" class="btn btn-danger" />
+        <button type="submit" class="btn btn-primary">Gönder</button>
+      </div>
+    </form>
+
+    <hr />
+    <h2 class="text-primary">Users</h2>
+    <!-- Sadece table-responsive class'ı yeterli -->
+    <div class="table-responsive">
+        <table id="blog-register-table" class="table table-hover table-striped">
+            <!-- THEAD -->
+            <thead>
+                <tr>
+                    <th class="text-uppercase">id</th>
+                    <th class="text-uppercase">username</th>
+                    <th class="text-uppercase">email</th>
+                    <th class="text-uppercase">password</th>
+                    <th class="text-uppercase">views</th>
+                    <th class="text-uppercase">status</th>
+                    <th class="text-uppercase">created date</th>
+                    <th class="text-uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tbody içeriği otomatik olarak kaydırılabilir olacak -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- end codes -->
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- external js -->
+    <!-- NOT: `/public/js/styles.js` için  public dizininde olması gerekiyor -->
+    <script src="/js/register.js"></script>
+  </body>
+</html>
