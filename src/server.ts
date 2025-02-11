@@ -1,9 +1,7 @@
 // http://localhost:1111/daily/list
 console.info("server.js Server 1111 portunda ayağa kalktı");
-// Bitirme Projesi
-// username
-// password
-// email
+console.info("server.js Server 1111 portunda ayağa kalktı");
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Import

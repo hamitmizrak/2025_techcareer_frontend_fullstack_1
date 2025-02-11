@@ -151,7 +151,7 @@ create_empty_files_if_not_exists() {
 
 # Fonksiyon çağrısı
 # Örnek olarak tüm dosyalar için çağrı
-create_empty_files_if_not_exists Dockerfile docker-compose.yml .gitlab-ci.yml Readme.md  shorting_keyboard.txt index.js
+create_empty_files_if_not_exists Dockerfile docker-compose.yml .gitlab-ci.yml Readme.md  shorting_keyboard.txt index.js public/css/index.css public/css/blog.css public/js/blog.js public/pictures public/index.html
 #create_empty_files_if_not_exists Dockerfile docker-compose.yml .gitlab-ci.yml  Readme.md style.css test.py shorting_keyboard.txt index.js
 
 #####################################################################################################
@@ -173,57 +173,102 @@ index_html_install() {
         ./bashscript_countdown.sh
 
         # index.html yoksa oluştur
-        if [ ! -f "index.html" ]; then
-            echo "index.html oluşturuluyor..."
-            cat > index.html <<EOL
+        if [ ! -f "public/index.html" ]; then
+            echo "public/index.html oluşturuluyor..."
+            cat > public/index.html <<EOL
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>Typescript Öğreniyorum</title>
+<head>
+    <!-- title -->
+    <title>😊Full Stack Frontend Öğreniyorum</title>
 
-        <!-- for language -->
-        <meta charset="utf-8" />
+    <!-- favicon -->
+    <link rel="stylesheet" href="pictures/favicon.png"/>
 
-        <!-- for responsive design -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- for language -->
+    <meta charset="utf-8"/>
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
+    <!-- for responsive design -->
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- seo -->
+    <meta
+            name="keywords"
+            content="html5, css3, js, bootstrap5, ts, ejs, node"
+    />
+    <meta name="description" content="blog page"/>
+    <meta name="author" content="Hamit Mızrak"/>
+    <meta name="title" content="Hamit Mızrak"/>
+
+    <!-- font awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- animate css -->
+    <!-- wow.js -->
+    <!-- sweet alert -->
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
-        />
+    />
 
-        <!-- External Css -->
-        <link rel="stylesheet" href="./style.css">
-    </head>
+    <!-- Internal Css -->
+    <style>
+        p,
+        h2 {
+            color: black;
+        }
+    </style>
+
+    <!-- External Css -->
+    <link rel="stylesheet" href="./css/index.css"/>
+</head>
 
     <body>
         <!-- Start Codes -->
         <h1 class="text-primary">Merhabalar Typescript Öğreniyorum</h1>
-    
+
         <p>
             lorem*10
         </p>
-    
-        <!-- End Codes -->
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
+<!-- End Codes -->
+<!-- Bootstrap JavaScript Libraries -->
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
 
-        <!-- External Js -->
-        <script src="./dist/index.js"></script>
-    </body>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+></script>
+
+<!-- External Js -->
+<script src="./dist/index.js"></script>
+</body>
 </html>
 EOL
             echo "index.html başarıyla oluşturuldu ve içerik eklendi."

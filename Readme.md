@@ -24,9 +24,20 @@
 
 ## Script run (Typescript başlat)
 ```sh
-npm start
-VEYA~~~~
-npm run dev:parallel
+ docker container run -d --name mongodb-container  -p 27000:27017 \
+             -e MONGO_INITDB_ROOT_USERNAME=root \
+             -e MONGO_INITDB_ROOT_PASSWORD=rootroot \
+             mongo
+
+rm -rf node_modules dist
+
+node_modules, dist yoksa kurmak için
+npm run dev:setup
+
+Eğer node_modules kuruluysa
+npm run dev:start
+
+UNUTMA: Mongodb localhost veya docker mongodb veya cloud mongo açık olması gerekiyor
 ```
 ---
 

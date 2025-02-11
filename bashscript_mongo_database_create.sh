@@ -1,8 +1,17 @@
 # Tsc compiler
-tsc
-npm install
-npm start
+#npm install
+#tsc
 
+#node_modules, dist için
+#npm run dev:setup
+
+#Eğer node_modules kuruluysa
+#npm run dev:start
+
+# docker container run -d --name mongodb-container  -p 27000:27017 \
+#             -e MONGO_INITDB_ROOT_USERNAME=root \
+#             -e MONGO_INITDB_ROOT_PASSWORD=rootroot \
+#             mongo
 
 # Mongo_env (Install)
 mongo_setup() {

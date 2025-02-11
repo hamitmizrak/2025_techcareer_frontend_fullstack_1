@@ -9,9 +9,8 @@
     "server:start": "lite-server",
     "build_watch": "tsc -w --pretty",
     "nodemon_app_watch": "nodemon --watch src --watch dist ./dist/server.js",
-    "dev:seri": "npm-run-all --serial build_watch nodemon_app_watch",
-    "dev:paralel": "concurrently -k \"npm run build_watch\" \"npm run nodemon_app_watch\" \"npm run server:start\"",
-    "dev:start": "npm-run-all --serial build_watch nodemon_app_watch start"
+    "dev:setup": "npm install && tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\"",
+    "dev:start": "tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\""
   },
   "keywords": [
     "Html5, Css3, Js, NodeJS, ES5+, Bootstrap5, "
@@ -19,7 +18,6 @@
   "author": "MSc Computer Enginner Hamit Mızrak",
   "license": "ISC",
   "dependencies": {
-    "2025_techcareer_frontend_fullstack_1": "file:",
     "body-parser": "^1.20.3",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -39,6 +37,7 @@
   "devDependencies": {
     "@types/node": "^22.13.1",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.0.1",
