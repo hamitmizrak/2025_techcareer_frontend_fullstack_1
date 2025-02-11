@@ -231,7 +231,7 @@ Default
 {
   "name": "2025_techcareer_frontend_fullstack_1",
   "version": "1.0.0",
-  "description": "[GitHub Address](https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_1.git)\r [Mongo Database]()\r ---",
+  "description": "[GitHub Address](https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_1.git)\r [Mongo Database Cloud](https://www.mongodb.com/products/platform/cloud)\r [Mongo Database Download](https://www.mongodb.com/try/download/community)\r [Font Awesome](https://fontawesome.com/search?ic=free)\r [Google Font](https://fonts.google.com/selection/embed)\r [Bootstrap](https://getbootstrap.com/)\r [Box Shadow Online](https://cssgenerator.pl/en/box-shadow-generator/)\r [jQuery](https://jquery.com//)\r [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install//)\r ---",
   "main": "./dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -239,15 +239,15 @@ Default
     "server:start": "lite-server",
     "build_watch": "tsc -w --pretty",
     "nodemon_app_watch": "nodemon --watch src --watch dist ./dist/server.js",
-    "dev:seri": "npm-run-all --serial build_watch nodemon_app_watch",
-    "dev:parallel": "concurrently -k \"npm run build_watch\" \"npm run nodemon_app_watch\" \"npm run server:start\""
+    "dev:setup": "npm install && tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\"",
+    "dev:start": "tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\""
   },
-  "keywords": [],
-  "author": "MSc Computer Engineer Hamit Mızrak",
+  "keywords": [
+    "Html5, Css3, Js, NodeJS, ES5+, Bootstrap5, "
+  ],
+  "author": "MSc Computer Enginner Hamit Mızrak",
   "license": "ISC",
-  
   "dependencies": {
-    "2025_techcareer_frontend_fullstack_1": "file:",
     "body-parser": "^1.20.3",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -257,18 +257,19 @@ Default
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
-    "mongodb": "^6.12.0",
-    "mongoose": "^8.9.5",
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.10.0",
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.1",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
-    "eslint": "^9.19.0",
+    "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "lite-server": "^2.6.1",
@@ -466,14 +467,14 @@ npm install  nodemon --save-dev
 
 ## package.json içinden Script yazmak-2
 ```sh
-   "scripts": {
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node  ./dist/server.js",
     "server:start": "lite-server",
     "build_watch": "tsc -w --pretty",
     "nodemon_app_watch": "nodemon --watch src --watch dist ./dist/server.js",
-    "dev:seri": "npm-run-all --serial build_watch nodemon_app_watch",
-    "dev:parallel": "concurrently -k \"npm run build_watch\" \"npm run nodemon_app_watch\" \"npm run server:start\""
+    "dev:setup": "npm install && tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\"",
+    "dev:start": "tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\""
   },
 ```
 ---

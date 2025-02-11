@@ -584,7 +584,6 @@ EOL
 
         echo -e "\e[32mTypeScript kurulumu tamamlandı!\e[0m"
 
-
         echo "Mevcut dizindeki dosyalar:"
         ls -al    # Dosya listesini görüntüle
 
@@ -1063,6 +1062,15 @@ git_push
 #####################################################################################################
 #####################################################################################################
 # Typescript başlat
-npm run dev:paralel
+ docker container run -d --name mongodb-container  -p 27000:27017 \
+             -e MONGO_INITDB_ROOT_USERNAME=root \
+             -e MONGO_INITDB_ROOT_PASSWORD=rootroot \
+             mongo
 
-# rm -rf node_modules src model routes views
+rm -rf node_modules dist
+
+node_modules, dist yoksa kurmak için
+npm run dev:setup
+
+Eğer node_modules kuruluysa
+npm run dev:start

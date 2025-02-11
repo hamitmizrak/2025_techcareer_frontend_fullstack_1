@@ -84,8 +84,6 @@ db.createUser({
     { role: "readWrite", db: "blogDB" } // blogDB üzerinde okuma ve yazma yetkisi
   ]
 })
-
-
  */
 
 // Localhostta MongoDB yüklüyse)
@@ -99,6 +97,10 @@ const databaseLocalUrl = process.env.MONGO_USERNAME && process.env.MONGO_PASSWOR
     ? `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@127.0.0.1:${process.env.MONGO_PORT}/blogDB`
     : "mongodb://blogAdmin:BlogPass123@127.0.0.1:27017/blogDB";
 
+// docker container run -d --name mongodb-container  -p 27000:27017 \
+//              -e MONGO_INITDB_ROOT_USERNAME=root \
+//              -e MONGO_INITDB_ROOT_PASSWORD=rootroot \
+//              mongo
 // 2.YOL (LOCALHOST)
 const databaseDockerUrl = "mongodb://localhost:27000/blogDB";
 
@@ -199,9 +201,11 @@ const limiter = rateLimit({
     message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.use("/blog/api", limiter);
 app.use("/register/api", limiter);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CORS
 // npm install cors
 // CORS (Cross-Origin Resource Sharing)
