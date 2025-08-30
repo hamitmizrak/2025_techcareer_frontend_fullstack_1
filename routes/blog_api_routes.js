@@ -22,8 +22,7 @@ const express = require("express");
 // Express için Log
 const morgan = require("morgan");
 
-// Express App
-const app = express(); // Express app oluştur.
+
 
 // Morgan Aktifleştirmek
 // Morgan'ı Express.js uygulamasında kullanalım.
